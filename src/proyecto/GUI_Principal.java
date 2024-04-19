@@ -251,7 +251,7 @@ public class GUI_Principal extends JFrame {
 
 		
 		JLabel lblNewLabel = new JLabel("¡Impulsando tú patrimonio! ");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Yael\\Downloads\\favicon.png"));
+		lblNewLabel.setIcon(new ImageIcon("imagenes/favicon.png"));
 		lblNewLabel.setFont(new Font("Roboto", Font.BOLD, 14));
 		lblNewLabel.setBounds(208, 11, 273, 28);
 		fondo.add(lblNewLabel);
