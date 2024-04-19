@@ -5,11 +5,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.formdev.flatlaf.FlatLightLaf;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -35,6 +40,9 @@ public class GUI_InicioSesion extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		FlatLightLaf.setup();
+		UIManager.put("Button.arc", 999);
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -120,23 +128,34 @@ public class GUI_InicioSesion extends JFrame {
 		fondo.add(textUsuario);
 		textUsuario.setColumns(10);
 		
-		JLabel lblContrasea = new JLabel("Contraseña");
-		lblContrasea.setFont(new Font("Roboto", Font.BOLD, 18));
-		lblContrasea.setBounds(30, 276, 99, 20);
-		fondo.add(lblContrasea);
+		
+		JLabel lblCrearNuevo = new JLabel("¿Nuevo en la app? ¡Registrate!");
+		lblCrearNuevo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblCrearNuevo.setForeground(Color.BLUE);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblCrearNuevo.setForeground(Color.BLACK);
+			}
+		});
+		lblCrearNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblCrearNuevo.setFont(new Font("Roboto", Font.BOLD, 15));
+		lblCrearNuevo.setBounds(257, 408, 213, 20);
+		fondo.add(lblCrearNuevo);
 		
 		JButton btnIngresar = new JButton("INGRESAR");
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String contraseña = String.valueOf(passContraseña.getPassword());
-				String usuario = textUsuario.getText();//
+				String usuario = textUsuario.getText();
 			
 			}
 		});
 		btnIngresar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnIngresar.setBorder(null);
 		btnIngresar.setForeground(new Color(255, 255, 255));
-		btnIngresar.setBackground(new Color(0, 128, 255));
+		btnIngresar.setBackground(new Color(19, 45, 70));
 		btnIngresar.setFont(new Font("Roboto", Font.BOLD, 17));
 		btnIngresar.setBounds(30, 392, 199, 50);
 		fondo.add(btnIngresar);
