@@ -18,6 +18,7 @@ import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JSeparator;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
@@ -30,6 +31,9 @@ public class GUI_Principal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	GUI_Inversiones p = new GUI_Inversiones();
+	GUI_Operaciones o = new GUI_Operaciones();
+	GUI_Cuenta c = new GUI_Cuenta();
 	
 	
 
@@ -61,6 +65,8 @@ public class GUI_Principal extends JFrame {
 	public GUI_Principal() {
 		
 		
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 995, 625);
 		contentPane = new JPanel();
@@ -69,23 +75,81 @@ public class GUI_Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel fondo = new JPanel();
-		fondo.setBackground(new Color(255, 255, 255));
+		JPanel fondo = new JPanel(); // Color blanco
+		fondo.setBackground(new Color(255, 255, 255)); 
 		fondo.setBounds(0, 0, 981, 599);
 		contentPane.add(fondo);
 		fondo.setLayout(null);
 		
-		JPanel menu = new JPanel();
+		JPanel menu = new JPanel(); // color rosa
 		menu.setBackground(new Color(19, 45, 70));
 		menu.setBounds(0, 0, 196, 588);
 		fondo.add(menu);
 		menu.setLayout(null);
 		
-		JPanel content = new JPanel();
-		content.setBackground(new Color(1, 195, 142));
-		content.setBounds(196, 116, 785, 472);
-		fondo.add(content);
-		content.setLayout(null);
+		JPanel Principal = new JPanel(); // Color verde
+		Principal.setBackground(new Color(255, 255, 255));
+		Principal.setBounds(196, 116, 785, 472);
+		fondo.add(Principal);
+		Principal.setLayout(null);
+		
+		JLabel lblBienvenidoAItz = new JLabel("¡BIENVENIDO A ITZÁ INVERSIONES, EL LUGAR EN DONDE IMPULSAMOS\r\n");
+		lblBienvenidoAItz.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBienvenidoAItz.setForeground(new Color(0, 0, 0));
+		lblBienvenidoAItz.setFont(new Font("Roboto", Font.BOLD, 20));
+		lblBienvenidoAItz.setBounds(24, 21, 665, 57);
+		Principal.add(lblBienvenidoAItz);
+		
+		JLabel lblTPatrimonio = new JLabel("TÚ PATRIMONIO!");
+		lblTPatrimonio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTPatrimonio.setForeground(new Color(0, 0, 0));
+		lblTPatrimonio.setFont(new Font("Roboto", Font.BOLD, 20));
+		lblTPatrimonio.setBounds(24, 68, 665, 57);
+		Principal.add(lblTPatrimonio);
+		
+		JLabel lblEsteEsEl = new JLabel("ESTA ES LA PANTALLA PRINCIPAL, POR FAVOR ELIJA SUS OPCIONES \r\n");
+		lblEsteEsEl.setHorizontalAlignment(SwingConstants.LEFT);
+		lblEsteEsEl.setForeground(Color.BLACK);
+		lblEsteEsEl.setFont(new Font("Roboto", Font.BOLD, 20));
+		lblEsteEsEl.setBounds(24, 149, 720, 57);
+		Principal.add(lblEsteEsEl);
+		
+		JLabel lblEnLaBarra = new JLabel("EN LA BARRA LATERAL.");
+		lblEnLaBarra.setHorizontalAlignment(SwingConstants.LEFT);
+		lblEnLaBarra.setForeground(Color.BLACK);
+		lblEnLaBarra.setFont(new Font("Roboto", Font.BOLD, 20));
+		lblEnLaBarra.setBounds(24, 199, 720, 57);
+		Principal.add(lblEnLaBarra);
+		
+		JLabel lblFecha = new JLabel("Fecha: []");
+		lblFecha.setEnabled(false);
+		lblFecha.setHorizontalAlignment(SwingConstants.LEFT);
+		lblFecha.setForeground(Color.BLACK);
+		lblFecha.setFont(new Font("Roboto", Font.BOLD, 20));
+		lblFecha.setBounds(24, 363, 280, 43);
+		Principal.add(lblFecha);
+		Calendar calendario = Calendar.getInstance();
+		String year = String.valueOf( calendario.get(Calendar.YEAR));
+		String dia =  String.valueOf(calendario.get(Calendar.DATE));
+		String mes = String.valueOf(calendario.get(Calendar.MONTH)+1);
+		String fecha = dia+"/"+mes+"/"+year;
+		lblFecha.setText("Fecha: " + fecha);
+		
+		JLabel lblHora = new JLabel("Hora: ");
+		lblHora.setHorizontalAlignment(SwingConstants.LEFT);
+		lblHora.setForeground(Color.BLACK);
+		lblHora.setFont(new Font("Roboto", Font.BOLD, 20));
+		lblHora.setEnabled(false);
+		lblHora.setBounds(24, 418, 280, 43);
+		Principal.add(lblHora);
+		
+		JLabel lbllogo = new JLabel("");
+		lbllogo.setIcon(new ImageIcon("imagenes/logo.png"));
+		lbllogo.setHorizontalAlignment(SwingConstants.LEFT);
+		lbllogo.setForeground(Color.BLACK);
+		lbllogo.setFont(new Font("Roboto", Font.BOLD, 20));
+		lbllogo.setBounds(544, 261, 200, 200);
+		Principal.add(lbllogo);
 		
 		JLabel lblInversiones = new JLabel("Mis Inversiones");
 		lblInversiones.setBorder(null);
@@ -105,20 +169,14 @@ public class GUI_Principal extends JFrame {
 				lblInversiones.setForeground(Color.WHITE);
 			}
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				prueba p = new prueba();
-				 if (content.isVisible()) {
-	                    content.setVisible(false);
-	                    contentPane.add(p);
-	                    p.setVisible(true);
-	                    p.repaint();
-	                    p.revalidate();
-	                } else { // Si el panel 2 está visible, ocúltalo y muestra el panel 1
-	                	p.setVisible(false);
-	                    content.setVisible(true);
-	                    content.repaint();
-	                    content.revalidate();
-	                }
+			public void mouseClicked(MouseEvent event) {
+				if(Principal.isShowing()) {
+					cambiarPantallas(Principal, p);
+				} else if(c.isShowing()) {
+					cambiarPantallas(c, p);
+				} else {
+					cambiarPantallas(o, p);
+				}
 			}
 		});
 		
@@ -145,6 +203,16 @@ public class GUI_Principal extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblCuenta.setForeground(Color.WHITE);
 			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(Principal.isShowing()) {
+					cambiarPantallas(Principal, c);
+				} else if(p.isShowing()) {
+					cambiarPantallas(p, c);
+				} else {
+					cambiarPantallas(o, c);
+				}
+			}
 		});
 		lblCuenta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblCuenta.setHorizontalAlignment(SwingConstants.CENTER);
@@ -162,6 +230,16 @@ public class GUI_Principal extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblOperaciones.setForeground(Color.WHITE);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(Principal.isShowing()) {
+					cambiarPantallas(Principal, o);
+				} else if(c.isShowing()) {
+					cambiarPantallas(c, o);
+				} else {
+					cambiarPantallas(p, o);
+				}
 			}
 		});
 		lblOperaciones.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -189,21 +267,10 @@ public class GUI_Principal extends JFrame {
 		lblSalir.setBounds(0, 428, 196, 29);
 		menu.add(lblSalir);
 		
-		JLabel lblfecha = new JLabel("[fecha]");
-		lblfecha.setEnabled(false);
-		lblfecha.setHorizontalAlignment(SwingConstants.CENTER);
-		lblfecha.setForeground(Color.WHITE);
-		lblfecha.setFont(new Font("Roboto", Font.BOLD, 20));
-		lblfecha.setBounds(0, 513, 196, 29);
-		menu.add(lblfecha);
-		Calendar calendario = Calendar.getInstance();
-		String year = String.valueOf( calendario.get(Calendar.YEAR));
-		String dia =  String.valueOf(calendario.get(Calendar.DATE));
-		String mes = String.valueOf(calendario.get(Calendar.MONTH)+1);
-		String fecha = dia+"/"+mes+"/"+year;
-		lblfecha.setText(fecha);
+		
 		
 		JLabel lblPrincipal = new JLabel("Principal");
+		lblPrincipal.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblPrincipal.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -212,6 +279,16 @@ public class GUI_Principal extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblPrincipal.setForeground(Color.WHITE);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(p.isShowing()) {
+					cambiarPantallas(p, Principal);
+				} else if(c.isShowing()) {
+					cambiarPantallas(c, Principal);
+				} else {
+					cambiarPantallas(o, Principal);
+				}
 			}
 		});
 		lblPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
@@ -247,13 +324,27 @@ public class GUI_Principal extends JFrame {
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Español", "Maya"}));
 		comboBox.setBounds(661, 27, 114, 29);
 		barra.add(comboBox);
-		
 
-		
 		JLabel lblNewLabel = new JLabel("¡Impulsando tú patrimonio! ");
 		lblNewLabel.setIcon(new ImageIcon("imagenes/favicon.png"));
 		lblNewLabel.setFont(new Font("Roboto", Font.BOLD, 14));
 		lblNewLabel.setBounds(208, 11, 273, 28);
 		fondo.add(lblNewLabel);
+	}
+	
+	public void cambiarPantallas(JPanel p1, JPanel p2) {
+		
+		if(p1.isShowing() == true) {
+		 	contentPane.add(p2);
+            p2.setVisible(true);
+            p2.repaint();
+            p2.revalidate();
+		}
+		else{
+			p2.setVisible(false);
+			p1.setVisible(true);
+            p1.repaint();
+            p1.revalidate();
+		}
 	}
 }

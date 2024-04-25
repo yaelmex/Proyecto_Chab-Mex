@@ -24,6 +24,10 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
@@ -35,6 +39,10 @@ public class GUI_InicioSesion extends JFrame {
 	private JPanel contentPane;
 	private JTextField textUsuario;
 	private JPasswordField passContraseña;
+	conexion conexion = new conexion();
+	Connection cn = null;
+	Statement stm = null;
+	ResultSet rs = null;
 
 	/**
 	 * Launch the application.
@@ -60,6 +68,40 @@ public class GUI_InicioSesion extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI_InicioSesion() {
+		//Prueba de que reconoce la bd
+		/*try {
+			cn = conexion.conectar();
+			stm = cn.createStatement();
+			rs = stm.executeQuery("SELECT * FROM usuarios");
+			
+			while(rs.next()) {
+				System.out.println(rs.getInt("ID") + rs.getString("Usuario") + rs.getString("Contraseña"));
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			try {
+				
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(stm != null) {
+					stm.close();
+				}
+				
+				if(cn != null) {
+					cn.close();
+				}
+				
+			} catch(Exception a) {
+				a.printStackTrace();
+			}
+		
+		}*/
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/favicon.png"));
 		setTitle("Itzá Inversiones");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
