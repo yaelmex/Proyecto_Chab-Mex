@@ -151,7 +151,7 @@ public class GUI_Principal extends JFrame {
 		lbllogo.setBounds(544, 261, 200, 200);
 		Principal.add(lbllogo);
 		
-		JLabel lblInversiones = new JLabel("Mis Inversiones");
+		JLabel lblInversiones = new JLabel("Invertir");
 		lblInversiones.setBorder(null);
 		lblInversiones.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblInversiones.setHorizontalAlignment(SwingConstants.CENTER);
@@ -193,7 +193,7 @@ public class GUI_Principal extends JFrame {
 		menu.add(separator);
 
 		
-		JLabel lblCuenta = new JLabel("Mi cuenta");
+		JLabel lblCuenta = new JLabel("Mis Inversiones");
 		lblCuenta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {

@@ -192,6 +192,16 @@ public class GUI_InicioSesion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String contraseña = String.valueOf(passContraseña.getPassword());
 				String usuario = textUsuario.getText();
+				boolean valid = conexion.Ingresar(usuario, contraseña);
+				if(valid) {
+					JOptionPane.showMessageDialog(null, "¡Inicio éxitoso!");
+					GUI_Principal frame = new GUI_Principal();
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(true);
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos");
+				}
 			
 			}
 		});
