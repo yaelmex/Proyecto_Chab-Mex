@@ -155,9 +155,63 @@ public class conexion {
 				a.printStackTrace();
 			}
 		}
-
 		return false;
-		
+	}
+	
+	public void relacionar(String entidad, String user, String operacion) {
+		try {
+			Connection MyConn = DriverManager.getConnection(url, usuario, contraseña);
+			
+			int IDoperacion = 0;
+			int IDtasa = 0;
+			String Usuario = "";
+			
+			String sqlBuscarUsuario = "SELECT Usuario FROM usuarios WHERE Usuario = ?";
+			PreparedStatement pstmt1 = MyConn.prepareStatement(sqlBuscarUsuario);
+			pstmt1.setString(1, user);
+			ResultSet rs1 = pstmt1.executeQuery();
+			
+			if(rs1.next()) {
+				Usuario = rs1.getString("Usuario");
+			}
+			
+			pstmt1.close();
+			
+			String sqlBuscarOperacion = "SELECT NumOperacion FROM operaciones WHERE Operacion = ?";
+			PreparedStatement pstmt2 = MyConn.prepareStatement(sqlBuscarOperacion);
+			pstmt2.setString(1, operacion);
+			ResultSet rs2 = pstmt2.executeQuery();
+			
+			if(rs2.next()) {
+				IDoperacion = rs2.getInt("NumOperacion");
+			}
+			
+			pstmt2.close();
+			
+			String sqlBuscarTasa = "SELECT ID FROM tasas WHERE `Entidad Financiera` =  ?";
+			PreparedStatement pstmt3 = MyConn.prepareStatement(sqlBuscarTasa);
+			pstmt3.setString(1, entidad);
+			ResultSet rs3 = pstmt3.executeQuery();
+			
+			if(rs3.next()) {
+				IDtasa = rs3.getInt("ID");
+			}
+			
+			pstmt3.close();
+			
+			
+			String sql = "INSERT INTO intermedia (IDoperacion, IDtasa, Usuario) VALUES (?, ?, ?)";
+			PreparedStatement pstmt = MyConn.prepareStatement(sql);
+			pstmt.setInt(1, IDoperacion);
+			pstmt.setInt(2, IDtasa);
+			pstmt.setString(3, Usuario);
+			pstmt.executeUpdate();
+			pstmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 	}
 	
 	

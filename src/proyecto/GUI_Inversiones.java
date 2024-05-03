@@ -15,6 +15,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Period;
 import java.awt.event.ActionEvent;
 import com.github.lgooddatepicker.components.DatePicker;
@@ -23,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
+import com.github.lgooddatepicker.components.DateTimePicker;
 
 public class GUI_Inversiones extends JPanel {
 
@@ -224,9 +226,9 @@ public class GUI_Inversiones extends JPanel {
 		JButton btnInvertir = new JButton("INVERTIR");
 		btnInvertir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String operacion = "Inversión";
 				Double monto = Double.parseDouble(textMonto.getText());
 				String opcion = comboInversiones.getSelectedItem().toString();
+				String operacion = "Inversión en: " + opcion;
 				
 				
 				if(opcion.equals("ORO") && monto < 1391.80) {
@@ -240,6 +242,12 @@ public class GUI_Inversiones extends JPanel {
 						JOptionPane.showMessageDialog(null, "Algo salió mal");
 					}
 				}
+
+				inversiones.relacionar(opcion, GUI_InicioSesion.user, operacion);
+				
+				
+				
+				
 					
 				
 

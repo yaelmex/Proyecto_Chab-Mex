@@ -306,11 +306,12 @@ public class GUI_Principal extends JFrame {
 		barra.setLayout(null);
 		
 		JLabel lblNombre = new JLabel("¡Hola! [nombre del usuario]");
-		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNombre.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNombre.setForeground(Color.WHITE);
 		lblNombre.setFont(new Font("Roboto", Font.BOLD, 20));
 		lblNombre.setBounds(10, 28, 259, 29);
 		barra.add(lblNombre);
+		lblNombre.setText("¡Hola! " + GUI_InicioSesion.user);
 		
 		JLabel lblIdioma = new JLabel("Idioma:");
 		lblIdioma.setHorizontalAlignment(SwingConstants.CENTER);
