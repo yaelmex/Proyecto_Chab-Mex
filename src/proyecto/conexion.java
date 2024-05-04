@@ -8,13 +8,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class conexion {
 	
 	private static final String controlador = "com.mysql.cj.jdbc.Driver";
-	private static final String url = "jdbc:mysql://localhost:3306/bd_inversiones";
-	private static final String usuario = "root";
-	private static final String contraseña = "yaelXD48";
+	private static final String url = "jdbc:mysql://localhost:3306/base_progra";
+	private static final String usuario = "Ricardo_Chab";
+	private static final String contraseña = "@Ricardo6424";
 	private ResultSet myRs;
+	ArrayList<String> DatosOperacion = new ArrayList<String>();
 	
 	
 	static {
@@ -214,6 +217,60 @@ public class conexion {
 		} 
 	}
 	
+	public void addNuevoUsuario (String User, String Pass1, String Pass2){
+		String NewUser = User; String contra1 = Pass1;
+		
+		if(User.equals("INGRESE SU USUARIO") || Pass1.equals("********") || Pass2.equals("********")) {
+			JOptionPane.showMessageDialog(null, "Porfavor ingrese la información necesaria");
+			return;
+		}
+		else {
+		
+		if(Pass1.equals(Pass2)) {
+			String contraAceptada = contra1;
+			try {
+				Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+				String sql = "Insert into usuarios (Usuario, Contraseña) values (?, ?)";
+				PreparedStatement ps = conexion.prepareStatement(sql);
+				ps.setString(1, NewUser);
+				ps.setString(2, contraAceptada);
+				ps.executeUpdate();
+		    	} catch(Exception e) {
+		    		System.out.println("Error en el registro de usuario");
+		    		e.printStackTrace();
+		    	}
+				}
+			else {
+				JOptionPane.showMessageDialog(null, "Las dos contraseñas deben coincidir");
+			} 
+		}
+	}
 	
+	public String getOperaciones (String User) {
+		String Opera = ""; String Monto = ""; String Fecha = "";
+		try {
+			Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+		    String Operacion=  "SELECT Operacion, Monto, Fecha FROM operaciones, intermedia WHERE Usuario like  ? AND IDoperacion = NumOperacion";
+		    PreparedStatement pstmt2 = conexion.prepareStatement(Operacion);
+			pstmt2.setString(1, User);
+			ResultSet setOperacionTabla = pstmt2.executeQuery();
+		    while(setOperacionTabla.next()) {
+		    	Opera = setOperacionTabla.getString("Operacion");
+		    	Monto = setOperacionTabla.getString("Monto");
+		    	Fecha = setOperacionTabla.getString("Fecha");
+		    	DatosOperacion.add(Opera);
+		    	DatosOperacion.add(Monto);
+		    	DatosOperacion.add(Fecha);
+		    	
+		    }
+		
+	    	} catch(Exception e) {
+	    		System.out.println("Error en el registro de usuario");
+	    		e.printStackTrace();
+			}
+		return Opera;
+	}
+	
+
 	
 }

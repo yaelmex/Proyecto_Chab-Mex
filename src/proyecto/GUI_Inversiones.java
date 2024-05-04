@@ -50,7 +50,7 @@ public class GUI_Inversiones extends JPanel {
 		add(comboInversiones);
 		
 		DatePicker Inicio = new DatePicker();
-		Inicio.setEnabled(false);
+		Inicio.setEnabled(true);
 		Inicio.setBounds(141, 253, 186, 22);
 		add(Inicio);
 		
@@ -67,7 +67,7 @@ public class GUI_Inversiones extends JPanel {
 		add(lblNewLabel_1_1_1_1);
 		
 		DatePicker Fin = new DatePicker();
-		Fin.setEnabled(false);
+		Fin.setEnabled(true);
 		Fin.setBounds(357, 254, 186, 22);
 		add(Fin);
 		
