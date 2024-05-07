@@ -18,6 +18,7 @@ public class conexion {
 	private static final String contraseña = "@Ricardo6424";
 	private ResultSet myRs;
 	ArrayList<String> DatosOperacion = new ArrayList<String>();
+	ArrayList<String> DatosTarjeta = new ArrayList<String>();
 	
 	
 	static {
@@ -246,7 +247,7 @@ public class conexion {
 		}
 	}
 	
-	public String getOperaciones (String User) {
+	public void getOperaciones (String User) {
 		String Opera = ""; String Monto = ""; String Fecha = "";
 		try {
 			Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
@@ -268,9 +269,89 @@ public class conexion {
 	    		System.out.println("Error en el registro de usuario");
 	    		e.printStackTrace();
 			}
-		return Opera;
 	}
 	
 
+	public void addCuentaBanco (String TipoCuenta, String Banco, double NumCuenta, double CLABE)
+	{
+		// Obtencion del total de digitos en la CLABE bancaria
+		double digitos = (int)(Math.log10(CLABE)+1);
+		// Seccion de validacion de datos
+		
+		if(digitos == 18 && NumCuenta > 12) {
+			
+		//Seccion de adicion de datos a base de datos
+			try {
+				Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+				String sql = "Insert into cuentasbancarias (Tipo_Cuenta, Banco, Usuario, Numero_Cuenta, CLABE) values (?, ?, ?, ?, ?)";
+				PreparedStatement ps = conexion.prepareStatement(sql);
+				ps.setString(1, TipoCuenta);
+				ps.setString(2, Banco);
+				ps.setString(3, GUI_InicioSesion.user);
+				ps.setDouble(4, NumCuenta);
+				ps.setDouble(5, CLABE);
+				ps.executeUpdate();
+		    	} catch(Exception e) {
+		    		System.out.println("Error en el registro de usuario");
+		    		e.printStackTrace();
+		    	}
+
+		} else {
+				JOptionPane.showMessageDialog(null, "Verifique los datos insertados en NumCuenta y CLABE");
+		}
+	}
+	
+	public void getDatosCuentaBanco (String User) {
+		String TipoCuenta = ""; String nomBanco= ""; String nomUsuario = "";
+		String NumeroCuenta = ""; String numCLABE = "";
+		try {
+			Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+		    String DatoCuentaBanco=  "SELECT Tipo_Cuenta, Banco, Usuario, Numero_Cuenta, CLABE "
+		    		+ "FROM cuentasbancarias WHERE Usuario like  ?";
+		    PreparedStatement pstmt2 = conexion.prepareStatement(DatoCuentaBanco);
+			pstmt2.setString(1, User);
+			ResultSet setOperacionTabla = pstmt2.executeQuery();
+		    while(setOperacionTabla.next()) {
+		    	TipoCuenta = setOperacionTabla.getString("Tipo_Cuenta");
+		    	nomBanco = setOperacionTabla.getString("Banco");
+		    	nomUsuario = setOperacionTabla.getString("Usuario");
+		    	NumeroCuenta = setOperacionTabla.getString("Numero_Cuenta");
+		    	numCLABE = setOperacionTabla.getString("CLABE");
+		    	DatosTarjeta.add(TipoCuenta);
+		    	DatosTarjeta.add(nomBanco);
+		    	DatosTarjeta.add(nomUsuario);
+		    	DatosTarjeta.add(NumeroCuenta);
+		    	DatosTarjeta.add(numCLABE);
+		    }
+		
+	    	} catch(Exception e) {
+	    		System.out.println("Error en el registro de usuario");
+	    		e.printStackTrace();
+			}
+	}
+	
+	public void deleteCuentaBanco(String TipoCuenta, String Banco, double NumCuenta, double CLABE, String Usuario) {
+		try {
+			Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+		    String DeleteCuentaBanco=  "Delete FROM cuentasbancarias WHERE Usuario = ? and Tipo_Cuenta like ? and Banco like ? "
+		    		+ " and Numero_Cuenta like ? and CLABE like ?";
+		    PreparedStatement pstmt2 = conexion.prepareStatement(DeleteCuentaBanco);
+			pstmt2.setString(1, Usuario);
+			pstmt2.setString(2, TipoCuenta);
+			pstmt2.setString(3, Banco);
+			pstmt2.setDouble(4, NumCuenta);
+			pstmt2.setDouble(5, CLABE);
+			pstmt2.executeUpdate();
+		
+	    	} catch(Exception e) {
+	    		System.out.println("Error en el registro de usuario");
+	    		e.printStackTrace();
+			}
+	}
+	
+	public String cambiaCuentaDeposito(String cuenta) {
+		String nuevaCuenta = "";
+		return nuevaCuenta = "";
+	}
 	
 }

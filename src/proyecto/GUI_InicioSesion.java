@@ -185,13 +185,13 @@ public class GUI_InicioSesion extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				RegistrarUsuario pantalla = new RegistrarUsuario();
-				contentPane.removeAll();
-				contentPane.repaint();
-				contentPane.revalidate();
+				fondo.setVisible(false);
+				fondo.repaint();
+				fondo.revalidate();
 				contentPane.add(pantalla);
-				contentPane.repaint();
-				contentPane.revalidate();
-				
+				pantalla.setVisible(true);
+				pantalla.revalidate();
+				pantalla.repaint();
 			}
 		});
 		lblCrearNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

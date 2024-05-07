@@ -2,11 +2,15 @@ package proyecto;
 
 import javax.swing.JPanel;
 import java.awt.Rectangle;
+import java.awt.Window;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -18,6 +22,7 @@ public class GUI_Cuenta extends JPanel {
 	 * Create the panel.
 	 */
 	public GUI_Cuenta() {
+		
 		setBackground(new Color(255, 255, 255));
 		setBounds(new Rectangle(196, 116, 785, 472));
 		setLayout(null);
@@ -30,7 +35,7 @@ public class GUI_Cuenta extends JPanel {
 		JLabel lblMenMis = new JLabel("Menú / Mis inversiones");
 		lblMenMis.setFont(new Font("Roboto", Font.BOLD, 15));
 		lblMenMis.setBounds(10, 42, 166, 29);
-		add(lblMenMis);
+		this.add(lblMenMis);
 		
 		JButton btnNewButton = new JButton("Mis inversiones");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -76,6 +81,13 @@ public class GUI_Cuenta extends JPanel {
 		JButton btnConfTarjetas = new JButton("Conf. Tarjetas");
 		btnConfTarjetas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				GUI_CuentayTarjeta pantalla = new GUI_CuentayTarjeta();
+				removeAll();
+				repaint();
+				revalidate();
+				add(pantalla);
+				repaint();
+				revalidate();
 			}
 		});
 		btnConfTarjetas.setBounds(548, 85, 166, 109);

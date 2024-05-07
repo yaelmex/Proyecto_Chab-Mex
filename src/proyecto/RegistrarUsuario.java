@@ -1,17 +1,21 @@
 package proyecto;
 
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Window;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JSeparator;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
@@ -23,6 +27,7 @@ public class RegistrarUsuario extends JPanel {
 	private JTextField txtUsuario;
 	private JPasswordField passContra1;
 	private JPasswordField passContra2;
+	GUI_InicioSesion pantalla = new GUI_InicioSesion();
 
 	/**
 	 * Create the panel.
@@ -36,7 +41,7 @@ public class RegistrarUsuario extends JPanel {
 		btnRegistrar.setForeground(new Color(255, 255, 255));
 		btnRegistrar.setBackground(new Color(19, 45, 70));
 		btnRegistrar.setFont(new Font("Roboto", Font.BOLD, 18));
-		btnRegistrar.setBounds(87, 419, 199, 50);
+		btnRegistrar.setBounds(200, 419, 149, 50);
 		add(btnRegistrar);
 		
 		JLabel imagen_izq_sup = new JLabel("");
@@ -164,11 +169,33 @@ public class RegistrarUsuario extends JPanel {
 		lblConfirmeSuContrasea.setBounds(20, 339, 216, 20);
 		add(lblConfirmeSuContrasea);
 		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI_InicioSesion pantalla = new GUI_InicioSesion();
+				JComponent thisPantalla = (JComponent) e.getSource();
+				thisPantalla.setVisible(false);
+				pantalla.getContentPane();
+				pantalla.setVisible(true);
+				pantalla.revalidate();
+				pantalla.repaint();
+				pantalla.getContentPane().setLayout(null);
+				pantalla.setLocationRelativeTo(null);
+				
+			}
+		});
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setFont(new Font("Roboto", Font.BOLD, 18));
+		btnCancelar.setBackground(new Color(19, 45, 70));
+		btnCancelar.setBounds(21, 419, 149, 50);
+		add(btnCancelar);
+		
 		//Boton registrar
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				conexion enviaDatos = new conexion();
 				enviaDatos.addNuevoUsuario(txtUsuario.getText(), passContra1.getText(), TOOL_TIP_TEXT_KEY);
+				
 			}
 		});
 		

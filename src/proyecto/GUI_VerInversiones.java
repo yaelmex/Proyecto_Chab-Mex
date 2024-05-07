@@ -7,7 +7,11 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUI_VerInversiones extends JPanel {
 
@@ -16,6 +20,7 @@ public class GUI_VerInversiones extends JPanel {
 	DefaultTableModel tablaInversiones = new DefaultTableModel();
 	String usuario = GUI_InicioSesion.user;
 	conexion llenarTabla = new conexion();
+	DefaultComboBoxModel cuentas = new DefaultComboBoxModel();
 
 	/**
 	 * Create the panel.
@@ -27,7 +32,7 @@ public class GUI_VerInversiones extends JPanel {
 		setLayout(null);
 		
 		table = new JTable();
-		table.setBounds(25, 43, 509, 133);
+		table.setBounds(10, 43, 509, 419);
 		tablaInversiones.addColumn("Operacion");
 		tablaInversiones.addColumn("Monto");
 		tablaInversiones.addColumn("Fecha");
@@ -42,9 +47,22 @@ public class GUI_VerInversiones extends JPanel {
 		add(table);
 		
 		JButton btnRetiraInv = new JButton("Retirar Inversion");
-		btnRetiraInv.setBounds(575, 39, 176, 39);
+		btnRetiraInv.setBounds(575, 74, 176, 39);
 		add(btnRetiraInv);
 		
+		JComboBox boxCuentasDeposito = new JComboBox();
+		boxCuentasDeposito.setVisible(false);
+		boxCuentasDeposito.setBounds(575, 210, 176, 22);
+		add(boxCuentasDeposito);
+		
+		JButton btnCambiaDepósito = new JButton("Cambiar cuenta de depósito");
+		btnCambiaDepósito.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				boxCuentasDeposito.setVisible(true);
+			}
+		});
+		btnCambiaDepósito.setBounds(575, 153, 176, 39);
+		add(btnCambiaDepósito);
 		
 		
 
