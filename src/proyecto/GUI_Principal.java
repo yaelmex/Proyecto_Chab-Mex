@@ -11,9 +11,12 @@ import javax.swing.text.AbstractDocument.Content;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Window;
 import java.util.Calendar;
 
 import javax.swing.ImageIcon;
@@ -24,6 +27,7 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.CardLayout;
 
@@ -63,6 +67,7 @@ public class GUI_Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI_Principal() {
+		setResizable(false);
 		
 		
 		
@@ -75,22 +80,17 @@ public class GUI_Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel fondo = new JPanel(); // Color blanco
-		fondo.setBackground(new Color(255, 255, 255)); 
-		fondo.setBounds(0, 0, 981, 599);
-		contentPane.add(fondo);
-		fondo.setLayout(null);
 		
 		JPanel menu = new JPanel(); // color rosa
 		menu.setBackground(new Color(19, 45, 70));
 		menu.setBounds(0, 0, 196, 588);
-		fondo.add(menu);
+	    getContentPane().add(menu);
 		menu.setLayout(null);
 		
 		JPanel Principal = new JPanel(); // Color verde
 		Principal.setBackground(new Color(255, 255, 255));
 		Principal.setBounds(196, 116, 785, 472);
-		fondo.add(Principal);
+		getContentPane().add(Principal);
 		Principal.setLayout(null);
 		
 		JLabel lblBienvenidoAItz = new JLabel("¡BIENVENIDO A ITZÁ INVERSIONES, EL LUGAR EN DONDE IMPULSAMOS\r\n");
@@ -170,13 +170,12 @@ public class GUI_Principal extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent event) {
-				if(Principal.isShowing()) {
-					cambiarPantallas(Principal, p);
-				} else if(c.isShowing()) {
-					cambiarPantallas(c, p);
-				} else {
-					cambiarPantallas(o, p);
-				}
+				GUI_Inversiones pantalla = new GUI_Inversiones();
+				JPanel contenedor = (JPanel) contentPane.getComponentAt(729, 447);
+				getContentPane().remove(contenedor);
+				contentPane.add(pantalla);
+				pantalla.revalidate();
+				pantalla.repaint();
 			}
 		});
 		
@@ -205,13 +204,12 @@ public class GUI_Principal extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(Principal.isShowing()) {
-					cambiarPantallas(Principal, c);
-				} else if(p.isShowing()) {
-					cambiarPantallas(p, c);
-				} else {
-					cambiarPantallas(o, c);
-				}
+				GUI_Cuenta pantalla = new GUI_Cuenta();
+				JPanel contenedor = (JPanel) contentPane.getComponentAt(729, 447);
+				getContentPane().remove(contenedor);
+				contentPane.add(pantalla);
+				pantalla.revalidate();
+				pantalla.repaint();
 			}
 		});
 		lblCuenta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -233,13 +231,12 @@ public class GUI_Principal extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(Principal.isShowing()) {
-					cambiarPantallas(Principal, o);
-				} else if(c.isShowing()) {
-					cambiarPantallas(c, o);
-				} else {
-					cambiarPantallas(p, o);
-				}
+				GUI_Operaciones frame = new GUI_Operaciones();
+				JPanel contenedor = (JPanel) contentPane.getComponentAt(729, 447);
+				getContentPane().remove(contenedor);
+				contentPane.add(frame);
+				frame.revalidate();
+				frame.repaint();
 			}
 		});
 		lblOperaciones.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -282,13 +279,19 @@ public class GUI_Principal extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(p.isShowing()) {
-					cambiarPantallas(p, Principal);
-				} else if(c.isShowing()) {
-					cambiarPantallas(c, Principal);
-				} else {
-					cambiarPantallas(o, Principal);
-				}
+				JPanel contenedor = (JPanel) contentPane.getComponentAt(729, 447);
+				getContentPane().remove(contenedor);
+				contenedor.setVisible(false);
+				getContentPane().add(Principal);
+				Principal.setVisible(true);
+				Principal.add(lblBienvenidoAItz);
+				Principal.add(lblTPatrimonio);
+				Principal.add(lblEsteEsEl);
+				Principal.add(lblEnLaBarra);
+				Principal.add(lblFecha);
+				Principal.add(lblHora);
+				Principal.revalidate();
+				Principal.repaint();
 			}
 		});
 		lblPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
@@ -302,7 +305,7 @@ public class GUI_Principal extends JFrame {
 		JPanel barra = new JPanel();
 		barra.setBackground(new Color(19, 45, 70));
 		barra.setBounds(196, 50, 785, 68);
-		fondo.add(barra);
+		getContentPane().add(barra);
 		barra.setLayout(null);
 		
 		JLabel lblNombre = new JLabel("¡Hola! [nombre del usuario]");
@@ -330,7 +333,7 @@ public class GUI_Principal extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon("imagenes/favicon.png"));
 		lblNewLabel.setFont(new Font("Roboto", Font.BOLD, 14));
 		lblNewLabel.setBounds(208, 11, 273, 28);
-		fondo.add(lblNewLabel);
+		getContentPane().add(lblNewLabel);
 	}
 	
 	public void cambiarPantallas(JPanel p1, JPanel p2) {

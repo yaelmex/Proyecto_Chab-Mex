@@ -182,6 +182,17 @@ public class GUI_InicioSesion extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblCrearNuevo.setForeground(Color.BLACK);
 			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				RegistrarUsuario pantalla = new RegistrarUsuario();
+				fondo.setVisible(false);
+				fondo.repaint();
+				fondo.revalidate();
+				contentPane.add(pantalla);
+				pantalla.setVisible(true);
+				pantalla.revalidate();
+				pantalla.repaint();
+			}
 		});
 		lblCrearNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblCrearNuevo.setFont(new Font("Roboto", Font.BOLD, 15));
