@@ -27,11 +27,11 @@ CREATE TABLE `cuentasbancarias` (
   `Tipo_Cuenta` varchar(45) NOT NULL,
   `Banco` varchar(45) NOT NULL,
   `Usuario` varchar(45) NOT NULL,
-  `Numero_Cuenta` double NOT NULL,
-  `CLABE` double NOT NULL,
+  `Numero_Cuenta` varchar(45) NOT NULL,
+  `CLABE` varchar(45) NOT NULL,
   `Saldo` double NOT NULL,
   PRIMARY KEY (`idMetodosPago`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `cuentasbancarias` (
 
 LOCK TABLES `cuentasbancarias` WRITE;
 /*!40000 ALTER TABLE `cuentasbancarias` DISABLE KEYS */;
+INSERT INTO `cuentasbancarias` VALUES (1,'Cuenta Corriente','Santander','RCHAB','12345678901234','123456789012345678',460590.74100357236);
 /*!40000 ALTER TABLE `cuentasbancarias` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-09  9:48:37
+-- Dump completed on 2024-05-12 14:34:23

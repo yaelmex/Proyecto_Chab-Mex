@@ -86,10 +86,10 @@ public class GUI_VerInversiones extends JPanel {
 		add(lblRegistroInversiones);
 		
 		JLabel lblFondo = new JLabel("");
-		lblFondo.setIcon((new ImageIcon("imagenes/city.png")));
+		lblFondo.setIcon((new ImageIcon("imagenes/imgManos.jpg"
+				+ "")));
 		lblFondo.setBounds(554, 0, 231, 472);
 		add(lblFondo);
-		
 		
 
 	}

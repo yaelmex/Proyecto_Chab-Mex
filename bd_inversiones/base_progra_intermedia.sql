@@ -23,10 +23,10 @@ DROP TABLE IF EXISTS `intermedia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `intermedia` (
-  `IDoperacion` int NOT NULL,
+  `IDoperacion` int NOT NULL AUTO_INCREMENT,
   `IDtasa` int NOT NULL,
   `Usuario` varchar(45) NOT NULL,
-  UNIQUE KEY `IDtasa_UNIQUE` (`IDtasa`),
+  `CuentaDeposito` varchar(130) NOT NULL,
   UNIQUE KEY `IDoperacion_UNIQUE` (`IDoperacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,7 +37,6 @@ CREATE TABLE `intermedia` (
 
 LOCK TABLES `intermedia` WRITE;
 /*!40000 ALTER TABLE `intermedia` DISABLE KEYS */;
-INSERT INTO `intermedia` VALUES (11,5,'RCHAB'),(12,7,'RCHAB');
 /*!40000 ALTER TABLE `intermedia` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-09  9:48:37
+-- Dump completed on 2024-05-12 14:34:23

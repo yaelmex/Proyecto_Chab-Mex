@@ -121,12 +121,12 @@ public class GUI_InicioSesion extends JFrame {
 		
 		JLabel imagen_izq_sup = new JLabel("");
 		imagen_izq_sup.setHorizontalAlignment(SwingConstants.CENTER);
-		imagen_izq_sup.setIcon(new ImageIcon("imagenes/logo.png"));
+		imagen_izq_sup.setIcon(new ImageIcon("imagenes/ImgEdificios.jpg"));
 		imagen_izq_sup.setBounds(510, 61, 276, 175);
 		fondo.add(imagen_izq_sup);
 		
 		JLabel imagen_izq_inf = new JLabel("New label");
-		imagen_izq_inf.setIcon(new ImageIcon("imagenes/city.png"));
+		imagen_izq_inf.setIcon(new ImageIcon("imagenes/ImgEdificios.jpg"));
 		imagen_izq_inf.setBounds(510, 0, 276, 491);
 		fondo.add(imagen_izq_inf);
 		
@@ -136,7 +136,7 @@ public class GUI_InicioSesion extends JFrame {
 		Logo.setBounds(20, 28, 276, 60);
 		fondo.add(Logo);
 		
-		JLabel lblNewLabel = new JLabel("INICIAR SESIÓN");
+		JLabel lblNewLabel = new JLabel("INICIO DE SESIÓN");
 		lblNewLabel.setFont(new Font("Roboto", Font.BOLD, 28));
 		lblNewLabel.setBounds(30, 99, 304, 50);
 		fondo.add(lblNewLabel);

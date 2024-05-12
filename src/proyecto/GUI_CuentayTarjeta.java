@@ -36,11 +36,12 @@ public class GUI_CuentayTarjeta extends JPanel {
 	 * Create the panel.
 	 */
 	public GUI_CuentayTarjeta() {
-		setBackground(new Color(255, 255, 255));
+		setBackground(new Color(19, 45, 70));
 		setBounds(new Rectangle(0, 0, 785, 472));
 		setLayout(null);
 		
 		JLabel lblMetodosPago = new JLabel("Metodos de Pago y Tarjetas");
+		lblMetodosPago.setForeground(new Color(255, 255, 255));
 		lblMetodosPago.setFont(new Font("Roboto", Font.BOLD, 20));
 		lblMetodosPago.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMetodosPago.setBounds(80, 23, 277, 25);

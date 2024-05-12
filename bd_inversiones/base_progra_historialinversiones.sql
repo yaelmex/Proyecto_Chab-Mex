@@ -16,30 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `usuarios`
+-- Table structure for table `historialinversiones`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
+DROP TABLE IF EXISTS `historialinversiones`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usuarios` (
-  `ID` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `historialinversiones` (
+  `idHistorial de inversiones` int NOT NULL AUTO_INCREMENT,
   `Usuario` varchar(45) NOT NULL,
-  `Contraseña` varchar(45) NOT NULL,
-  `Telefono` varchar(45) DEFAULT NULL,
-  `Domicilio` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `Operacion` varchar(45) NOT NULL,
+  `Monto` double NOT NULL,
+  `Fecha` varchar(45) NOT NULL,
+  `Estado` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idHistorial de inversiones`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `usuarios`
+-- Dumping data for table `historialinversiones`
 --
 
-LOCK TABLES `usuarios` WRITE;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Admin','123@Admin','9992783045','Sin domicilio'),(2,'JMEX','123yael','9993468253','Sin domicilio'),(3,'RCHAB','123ricardo','9992804925','Sin domicilio');
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
+LOCK TABLES `historialinversiones` WRITE;
+/*!40000 ALTER TABLE `historialinversiones` DISABLE KEYS */;
+/*!40000 ALTER TABLE `historialinversiones` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

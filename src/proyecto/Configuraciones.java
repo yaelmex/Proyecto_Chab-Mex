@@ -28,13 +28,13 @@ public class Configuraciones extends JPanel {
 	 */
 	public Configuraciones() {
 		
-		setBackground(new Color(255, 255, 255));
+		setBackground(new Color(19, 45, 70));
 		setBounds(new Rectangle(0, 0, 785, 472));
 		setLayout(null);
 		llenarTabla.getUserData(GUI_InicioSesion.user);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(27, 68, 525, 287);
+		panel.setBounds(127, 75, 525, 287);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -104,24 +104,15 @@ public class Configuraciones extends JPanel {
 				txtAdress.setText(llenarTabla.DatosUsuario.get(2).toString());
 			}
 		});
-		btnActualizar.setBounds(201, 380, 167, 57);
+		btnActualizar.setBounds(293, 385, 167, 57);
 		add(btnActualizar);
 		
 		JLabel lblNewLabel = new JLabel("Datos de Cuenta");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Roboto", Font.BOLD, 25));
-		lblNewLabel.setBounds(115, 27, 234, 23);
+		lblNewLabel.setBounds(279, 29, 234, 23);
 		add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBackground(new Color(0, 64, 128));
-		lblNewLabel_1.setForeground(new Color(0, 128, 192));
-		lblNewLabel_1.setBounds(577, 70, 181, 195);
-		add(lblNewLabel_1);
-		
-		JButton btnFotoUsuario = new JButton("Cargar foto");
-		btnFotoUsuario.setBounds(620, 271, 89, 23);
-		add(btnFotoUsuario);
 		
 		
 		

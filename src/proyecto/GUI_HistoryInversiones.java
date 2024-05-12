@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -22,12 +23,12 @@ public class GUI_HistoryInversiones extends JPanel {
 	 * Create the panel.
 	 */
 	public GUI_HistoryInversiones() {
-		setBackground(new Color(255, 255, 255));
+		setBackground(new Color(19, 45, 70));
 		setBounds(new Rectangle(0, 0, 785, 472));
 		setLayout(null);
 		
 		table = new JTable();
-		table.setBounds(28, 92, 733, 346);
+		table.setBounds(28, 92, 720, 346);
 		tablaInversiones.addColumn("Operacion");
 		tablaInversiones.addColumn("Monto");
 		tablaInversiones.addColumn("Fecha");
@@ -40,8 +41,9 @@ public class GUI_HistoryInversiones extends JPanel {
 		add(table);
 		
 		JLabel lblHistorialDeInversiones = new JLabel("Historial de inversiones realizadas");
+		lblHistorialDeInversiones.setForeground(new Color(255, 255, 255));
 		lblHistorialDeInversiones.setFont(new Font("Roboto", Font.BOLD, 25));
-		lblHistorialDeInversiones.setBounds(59, 31, 435, 55);
+		lblHistorialDeInversiones.setBounds(195, 31, 435, 55);
 		add(lblHistorialDeInversiones);
 	}
 	

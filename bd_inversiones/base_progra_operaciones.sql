@@ -27,8 +27,10 @@ CREATE TABLE `operaciones` (
   `Operacion` varchar(45) NOT NULL,
   `Monto` double NOT NULL,
   `Fecha` varchar(45) NOT NULL,
+  `NumeroMeses` int DEFAULT NULL,
+  `TasaInteres` float DEFAULT NULL,
   PRIMARY KEY (`NumOperacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +39,6 @@ CREATE TABLE `operaciones` (
 
 LOCK TABLES `operaciones` WRITE;
 /*!40000 ALTER TABLE `operaciones` DISABLE KEYS */;
-INSERT INTO `operaciones` VALUES (11,'Inversión en: BANAMEX',10000,'2024-05-03 - 2027-05-03'),(12,'Inversión en: BBVA',4000,'2024-05-03 - 2025-05-03');
 /*!40000 ALTER TABLE `operaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-09  9:48:37
+-- Dump completed on 2024-05-12 14:34:23
