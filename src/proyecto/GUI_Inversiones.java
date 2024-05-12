@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
+import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.awt.event.ActionEvent;
 import com.github.lgooddatepicker.components.DatePicker;
 import java.awt.Cursor;
@@ -25,16 +27,19 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import com.github.lgooddatepicker.components.DateTimePicker;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GUI_Inversiones extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	conexion inversiones = new conexion();
 	DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+	DefaultComboBoxModel cuentas = new DefaultComboBoxModel();
 	private JTextField textMonto;
 	private JTable tablaSimul;
 	DefaultTableModel modeloTabla = new DefaultTableModel();
-	int validador = 0;
+	int validador = 0; int validadorCuentas = 0;
 
 	/**
 	 * Create the panel.
@@ -129,7 +134,6 @@ public class GUI_Inversiones extends JPanel {
 				case"5 Años": Fin.setDate(hoy.plusYears(5)); break;			
 				}
 				
-
 			}
 		});
 		comboTiempo.setFont(new Font("Roboto", Font.BOLD, 12));
@@ -180,7 +184,7 @@ public class GUI_Inversiones extends JPanel {
 		btnSimular.setForeground(Color.WHITE);
 		btnSimular.setFont(new Font("Roboto", Font.BOLD, 17));
 		btnSimular.setBackground(new Color(19, 45, 70));
-		btnSimular.setBounds(285, 357, 199, 50);
+		btnSimular.setBounds(297, 392, 199, 50);
 		add(btnSimular);
 		
 		
@@ -201,6 +205,28 @@ public class GUI_Inversiones extends JPanel {
 		textMonto.setBounds(141, 123, 186, 20);
 		add(textMonto);
 		textMonto.setColumns(10);
+		
+		JComboBox BoxCuentaDeposito = new JComboBox();
+		BoxCuentaDeposito.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GUI_CuentayTarjeta llenarCuentas = new GUI_CuentayTarjeta();
+				if(validadorCuentas == 1) {
+					
+				} else {
+				for(int i = 0; i < llenarCuentas.datosCuenta.size(); i = i + 3) 
+				{
+					String cuentaReal = llenarCuentas.datosCuenta.get(i) + " " + llenarCuentas.datosCuenta.get(i+1) + " "
+					+ llenarCuentas.datosCuenta.get(i+2);
+					cuentas.addElement(cuentaReal);
+				}
+				BoxCuentaDeposito.setModel(cuentas);
+				validadorCuentas = 1;
+				}
+			}
+		});
+		BoxCuentaDeposito.setBounds(214, 331, 329, 22);
+		add(BoxCuentaDeposito);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Inversiones para ti:");
 		lblNewLabel_1_1.setForeground(Color.WHITE);
@@ -229,39 +255,45 @@ public class GUI_Inversiones extends JPanel {
 				Double monto = Double.parseDouble(textMonto.getText());
 				String opcion = comboInversiones.getSelectedItem().toString();
 				String operacion = "Inversión en: " + opcion;
+				String cuenta = BoxCuentaDeposito.getSelectedItem().toString();
+				String [] parts = cuenta.split(" ");
+				String num_Cuenta = parts[3];
+				String fecha = "";
 				
+				/* Obtencion del numero de meses en enteros */
+				long diff = ChronoUnit.MONTHS.between(YearMonth.from(Inicio.getDate()), YearMonth.from(Fin.getDate()));
+				int numMeses = (int)diff;				
 				
 				if(opcion.equals("ORO") && monto < 1391.80) {
 					JOptionPane.showMessageDialog(null, "El monto mínimo a invertir en oro es de: 1391.80 pesos mexicanos");
 				} else {
-					String fecha = Inicio.getDateStringOrEmptyString() + " - " + Fin.getDateStringOrEmptyString();
-					boolean valid = inversiones.Invertir(operacion, monto, fecha);
+					fecha = Inicio.getDateStringOrEmptyString() + " - " + Fin.getDateStringOrEmptyString();
+					float tasa = inversiones.getTasa(opcion);	
+					boolean valid = inversiones.Invertir(operacion, monto, fecha, numMeses, tasa);
 					if(valid) {
 						JOptionPane.showMessageDialog(null, "¡Inversión realizada con éxito!");
 					} else {
 						JOptionPane.showMessageDialog(null, "Algo salió mal");
 					}
 				}
-
-				inversiones.relacionar(opcion, GUI_InicioSesion.user, operacion);
-				
-				
-				
-				
-					
-				
-
-				
+				System.out.println(BoxCuentaDeposito.getSelectedItem().toString());
+				inversiones.relacionar(opcion, GUI_InicioSesion.user, operacion, num_Cuenta);
+				inversiones.AddToHistorial(GUI_InicioSesion.user, operacion, monto, fecha , "Activa");
 			}
 		});
 		btnInvertir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnInvertir.setForeground(Color.WHITE);
 		btnInvertir.setFont(new Font("Roboto", Font.BOLD, 17));
 		btnInvertir.setBackground(new Color(19, 45, 70));
-		btnInvertir.setBounds(53, 357, 199, 50);
+		btnInvertir.setBounds(53, 392, 199, 50);
 		add(btnInvertir);
 		
-
+		JLabel lblCuentaDeposito = new JLabel("Cuenta a Depositar:");
+		lblCuentaDeposito.setForeground(Color.WHITE);
+		lblCuentaDeposito.setFont(new Font("Roboto", Font.BOLD, 12));
+		lblCuentaDeposito.setBounds(53, 332, 129, 18);
+		add(lblCuentaDeposito);
+		
 
 		
 

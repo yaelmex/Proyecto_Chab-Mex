@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Cursor;
 
 public class GUI_Cuenta extends JPanel {
 
@@ -38,6 +39,7 @@ public class GUI_Cuenta extends JPanel {
 		this.add(lblMenMis);
 		
 		JButton btnNewButton = new JButton("Mis inversiones");
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI_VerInversiones pantalla = new GUI_VerInversiones();
@@ -59,16 +61,40 @@ public class GUI_Cuenta extends JPanel {
 		add(lblRevisarInversiones);
 		
 		JButton btnConfiguraciones = new JButton("Configuraciones");
+		btnConfiguraciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Configuraciones pantalla = new Configuraciones();
+				removeAll();
+				repaint();
+				revalidate();
+				add(pantalla);
+				repaint();
+				revalidate();
+				
+			}
+		});
 		btnConfiguraciones.setBounds(71, 268, 166, 109);
 		add(btnConfiguraciones);
 		
-		JLabel lblConfiguracion = new JLabel("Configuración");
+		JLabel lblConfiguracion = new JLabel("Datos de Cuenta");
 		lblConfiguracion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConfiguracion.setFont(new Font("Roboto", Font.BOLD, 15));
 		lblConfiguracion.setBounds(71, 383, 166, 29);
 		add(lblConfiguracion);
 		
 		JButton btnHistorialDeInversiones = new JButton("Historial de inversiones");
+		btnHistorialDeInversiones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI_HistoryInversiones pantalla = new GUI_HistoryInversiones();
+				removeAll();
+				repaint();
+				revalidate();
+				add(pantalla);
+				repaint();
+				revalidate();
+			}
+		});
 		btnHistorialDeInversiones.setBounds(315, 85, 166, 109);
 		add(btnHistorialDeInversiones);
 		
