@@ -43,6 +43,7 @@ public class GUI_InicioSesion extends JFrame {
 	Connection cn = null;
 	Statement stm = null;
 	ResultSet rs = null;
+	public static String user = "";
 
 	/**
 	 * Launch the application.
@@ -120,12 +121,12 @@ public class GUI_InicioSesion extends JFrame {
 		
 		JLabel imagen_izq_sup = new JLabel("");
 		imagen_izq_sup.setHorizontalAlignment(SwingConstants.CENTER);
-		imagen_izq_sup.setIcon(new ImageIcon("imagenes/logo.png"));
+		imagen_izq_sup.setIcon(new ImageIcon("imagenes/ImgEdificios.jpg"));
 		imagen_izq_sup.setBounds(510, 61, 276, 175);
 		fondo.add(imagen_izq_sup);
 		
 		JLabel imagen_izq_inf = new JLabel("New label");
-		imagen_izq_inf.setIcon(new ImageIcon("imagenes/city.png"));
+		imagen_izq_inf.setIcon(new ImageIcon("imagenes/ImgEdificios.jpg"));
 		imagen_izq_inf.setBounds(510, 0, 276, 491);
 		fondo.add(imagen_izq_inf);
 		
@@ -135,7 +136,7 @@ public class GUI_InicioSesion extends JFrame {
 		Logo.setBounds(20, 28, 276, 60);
 		fondo.add(Logo);
 		
-		JLabel lblNewLabel = new JLabel("INICIAR SESIÓN");
+		JLabel lblNewLabel = new JLabel("INICIO DE SESIÓN");
 		lblNewLabel.setFont(new Font("Roboto", Font.BOLD, 28));
 		lblNewLabel.setBounds(30, 99, 304, 50);
 		fondo.add(lblNewLabel);
@@ -181,6 +182,17 @@ public class GUI_InicioSesion extends JFrame {
 			public void mouseExited(MouseEvent e) {
 				lblCrearNuevo.setForeground(Color.BLACK);
 			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				RegistrarUsuario pantalla = new RegistrarUsuario();
+				fondo.setVisible(false);
+				fondo.repaint();
+				fondo.revalidate();
+				contentPane.add(pantalla);
+				pantalla.setVisible(true);
+				pantalla.revalidate();
+				pantalla.repaint();
+			}
 		});
 		lblCrearNuevo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblCrearNuevo.setFont(new Font("Roboto", Font.BOLD, 15));
@@ -192,6 +204,17 @@ public class GUI_InicioSesion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String contraseña = String.valueOf(passContraseña.getPassword());
 				String usuario = textUsuario.getText();
+				boolean valid = conexion.Ingresar(usuario, contraseña);
+				if(valid) {
+					JOptionPane.showMessageDialog(null, "¡Inicio éxitoso!");
+					user = usuario;
+					GUI_Principal frame = new GUI_Principal();
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(true);
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "Usuario y/o contraseña incorrectos");
+				}
 			
 			}
 		});
