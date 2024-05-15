@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
+import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.awt.event.ActionEvent;
 import com.github.lgooddatepicker.components.DatePicker;
 import java.awt.Cursor;
@@ -25,16 +27,19 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import com.github.lgooddatepicker.components.DateTimePicker;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GUI_Inversiones extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	conexion inversiones = new conexion();
 	DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+	DefaultComboBoxModel cuentas = new DefaultComboBoxModel();
 	private JTextField textMonto;
 	private JTable tablaSimul;
 	DefaultTableModel modeloTabla = new DefaultTableModel();
-	int validador = 0;
+	int validador = 0; int validadorCuentas = 0;
 
 	/**
 	 * Create the panel.
@@ -54,28 +59,28 @@ public class GUI_Inversiones extends JPanel {
 		Inicio.setBounds(141, 253, 186, 22);
 		add(Inicio);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Plazo:");
-		lblNewLabel_1_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1_1.setFont(new Font("Roboto", Font.BOLD, 12));
-		lblNewLabel_1_1_1.setBounds(53, 253, 82, 18);
-		add(lblNewLabel_1_1_1);
+		JLabel lblPlazo = new JLabel("Plazo:");
+		lblPlazo.setForeground(Color.WHITE);
+		lblPlazo.setFont(new Font("Roboto", Font.BOLD, 12));
+		lblPlazo.setBounds(53, 253, 82, 18);
+		add(lblPlazo);
 		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("Inicio");
-		lblNewLabel_1_1_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1_1_1.setFont(new Font("Roboto", Font.BOLD, 12));
-		lblNewLabel_1_1_1_1.setBounds(141, 287, 82, 18);
-		add(lblNewLabel_1_1_1_1);
+		JLabel lblInicio = new JLabel("Inicio");
+		lblInicio.setForeground(Color.WHITE);
+		lblInicio.setFont(new Font("Roboto", Font.BOLD, 12));
+		lblInicio.setBounds(141, 287, 82, 18);
+		add(lblInicio);
 		
 		DatePicker Fin = new DatePicker();
 		Fin.setEnabled(true);
 		Fin.setBounds(357, 254, 186, 22);
 		add(Fin);
 		
-		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Fin");
-		lblNewLabel_1_1_1_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1_1_1_1.setFont(new Font("Roboto", Font.BOLD, 12));
-		lblNewLabel_1_1_1_1_1.setBounds(357, 290, 82, 18);
-		add(lblNewLabel_1_1_1_1_1);
+		JLabel lblFin = new JLabel("Fin");
+		lblFin.setForeground(Color.WHITE);
+		lblFin.setFont(new Font("Roboto", Font.BOLD, 12));
+		lblFin.setBounds(357, 290, 82, 18);
+		add(lblFin);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -94,11 +99,11 @@ public class GUI_Inversiones extends JPanel {
 			}
 		));
 		
-		JLabel lblNewLabel_1_1_1_1_2 = new JLabel("Simulador");
-		lblNewLabel_1_1_1_1_2.setForeground(Color.WHITE);
-		lblNewLabel_1_1_1_1_2.setFont(new Font("Roboto", Font.BOLD, 12));
-		lblNewLabel_1_1_1_1_2.setBounds(692, 216, 66, 18);
-		add(lblNewLabel_1_1_1_1_2);
+		JLabel lblSimu = new JLabel("Simulador");
+		lblSimu.setForeground(Color.WHITE);
+		lblSimu.setFont(new Font("Roboto", Font.BOLD, 12));
+		lblSimu.setBounds(692, 216, 66, 18);
+		add(lblSimu);
 		
 		
 		JComboBox comboTiempo = new JComboBox();
@@ -129,7 +134,6 @@ public class GUI_Inversiones extends JPanel {
 				case"5 Años": Fin.setDate(hoy.plusYears(5)); break;			
 				}
 				
-
 			}
 		});
 		comboTiempo.setFont(new Font("Roboto", Font.BOLD, 12));
@@ -180,7 +184,7 @@ public class GUI_Inversiones extends JPanel {
 		btnSimular.setForeground(Color.WHITE);
 		btnSimular.setFont(new Font("Roboto", Font.BOLD, 17));
 		btnSimular.setBackground(new Color(19, 45, 70));
-		btnSimular.setBounds(285, 357, 199, 50);
+		btnSimular.setBounds(297, 392, 199, 50);
 		add(btnSimular);
 		
 		
@@ -190,11 +194,11 @@ public class GUI_Inversiones extends JPanel {
 		lblNewLabel.setBounds(53, 73, 112, 18);
 		add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Monto:");
-		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_1.setFont(new Font("Roboto", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(53, 123, 76, 18);
-		add(lblNewLabel_1);
+		JLabel lblMonto = new JLabel("Monto:");
+		lblMonto.setForeground(Color.WHITE);
+		lblMonto.setFont(new Font("Roboto", Font.BOLD, 12));
+		lblMonto.setBounds(53, 123, 76, 18);
+		add(lblMonto);
 		
 		textMonto = new JTextField();
 		textMonto.setFont(new Font("Roboto", Font.BOLD, 11));
@@ -202,14 +206,35 @@ public class GUI_Inversiones extends JPanel {
 		add(textMonto);
 		textMonto.setColumns(10);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Inversiones para ti:");
-		lblNewLabel_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1.setFont(new Font("Roboto", Font.BOLD, 12));
-		lblNewLabel_1_1.setBounds(53, 187, 149, 18);
-		add(lblNewLabel_1_1);
+		JComboBox BoxCuentaDeposito = new JComboBox();
+		BoxCuentaDeposito.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GUI_CuentayTarjeta llenarCuentas = new GUI_CuentayTarjeta();
+				if(validadorCuentas == 1) {
+					
+				} else {
+				for(int i = 0; i < llenarCuentas.datosCuenta.size(); i = i + 3) 
+				{
+					String cuentaReal = llenarCuentas.datosCuenta.get(i) + " " + llenarCuentas.datosCuenta.get(i+1) + " "
+					+ llenarCuentas.datosCuenta.get(i+2);
+					cuentas.addElement(cuentaReal);
+				}
+				BoxCuentaDeposito.setModel(cuentas);
+				validadorCuentas = 1;
+				}
+			}
+		});
+		BoxCuentaDeposito.setBounds(214, 331, 329, 22);
+		add(BoxCuentaDeposito);
+		
+		JLabel lblInv = new JLabel("Inversiones para ti:");
+		lblInv.setForeground(Color.WHITE);
+		lblInv.setFont(new Font("Roboto", Font.BOLD, 12));
+		lblInv.setBounds(53, 187, 149, 18);
+		add(lblInv);
 		
 		JButton btnLimpiar = new JButton("LIMPIAR");
-		btnLimpiar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int filas = modeloTabla.getRowCount();
@@ -230,39 +255,70 @@ public class GUI_Inversiones extends JPanel {
 				Double monto = Double.parseDouble(textMonto.getText());
 				String opcion = comboInversiones.getSelectedItem().toString();
 				String operacion = "Inversión en: " + opcion;
+				String cuenta = BoxCuentaDeposito.getSelectedItem().toString();
+				String [] parts = cuenta.split(" ");
+				String num_Cuenta = parts[3];
+				String fecha = "";
 				
+				/* Obtencion del numero de meses en enteros */
+				long diff = ChronoUnit.MONTHS.between(YearMonth.from(Inicio.getDate()), YearMonth.from(Fin.getDate()));
+				int numMeses = (int)diff;				
 				
 				if(opcion.equals("ORO") && monto < 1391.80) {
 					JOptionPane.showMessageDialog(null, "El monto mínimo a invertir en oro es de: 1391.80 pesos mexicanos");
 				} else {
-					String fecha = Inicio.getDateStringOrEmptyString() + " - " + Fin.getDateStringOrEmptyString();
-					boolean valid = inversiones.Invertir(operacion, monto, fecha);
+					fecha = Inicio.getDateStringOrEmptyString() + " - " + Fin.getDateStringOrEmptyString();
+					float tasa = inversiones.getTasa(opcion);	
+					boolean valid = inversiones.Invertir(operacion, monto, fecha, numMeses, tasa);
 					if(valid) {
 						JOptionPane.showMessageDialog(null, "¡Inversión realizada con éxito!");
 					} else {
 						JOptionPane.showMessageDialog(null, "Algo salió mal");
 					}
 				}
-
-				inversiones.relacionar(opcion, GUI_InicioSesion.user, operacion);
-				
-				
-				
-				
-					
-				
-
-				
+				System.out.println(BoxCuentaDeposito.getSelectedItem().toString());
+				inversiones.relacionar(opcion, GUI_InicioSesion.user, operacion, num_Cuenta);
+				inversiones.AddToHistorial(GUI_InicioSesion.user, operacion, monto, fecha , "Activa");
 			}
 		});
 		btnInvertir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnInvertir.setForeground(Color.WHITE);
 		btnInvertir.setFont(new Font("Roboto", Font.BOLD, 17));
 		btnInvertir.setBackground(new Color(19, 45, 70));
-		btnInvertir.setBounds(53, 357, 199, 50);
+		btnInvertir.setBounds(53, 392, 199, 50);
 		add(btnInvertir);
 		
-
+		JLabel lblCuentaDeposito = new JLabel("Cuenta a Depositar:");
+		lblCuentaDeposito.setForeground(Color.WHITE);
+		lblCuentaDeposito.setFont(new Font("Roboto", Font.BOLD, 12));
+		lblCuentaDeposito.setBounds(53, 332, 129, 18);
+		add(lblCuentaDeposito);
+		
+		if(GUI_Principal.idioma.equals("Maya")) {
+			lblNewLabel.setText("k'i'ik'");
+			lblMonto.setText("p'ax");
+			lblInv.setText("talaj inwinales ti");
+			lblPlazo.setText("k'i'ik'al");
+			lblInicio.setText("uchben");
+			lblFin.setText("mako'ob");
+			lblCuentaDeposito.setText("u k'áab a wa'ixik");
+			lblSimu.setText("k'i'ik'ach");
+			btnInvertir.setText("winikchaj");
+			btnSimular.setText("k'i'ik'achaj");
+			btnLimpiar.setText("ts'íik");;
+		} else {
+			lblNewLabel.setText("Tiempo");
+			lblMonto.setText("Monto");
+			lblInv.setText("Inversiones para ti:");
+			lblPlazo.setText("Plazo");
+			lblInicio.setText("Inicio");
+			lblFin.setText("Fin");
+			lblCuentaDeposito.setText("Cuenta a Depositar: ");
+			lblSimu.setText("Simulador");
+			btnInvertir.setText("INVERTIR");
+			btnSimular.setText("SIMULAR");
+			btnLimpiar.setText("LIMPIAR");
+		}
 
 		
 

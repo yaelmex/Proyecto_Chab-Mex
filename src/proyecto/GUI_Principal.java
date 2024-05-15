@@ -12,9 +12,12 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Window;
 import java.util.Calendar;
@@ -30,6 +33,10 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.CardLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class GUI_Principal extends JFrame {
 
@@ -38,6 +45,7 @@ public class GUI_Principal extends JFrame {
 	GUI_Inversiones p = new GUI_Inversiones();
 	GUI_Operaciones o = new GUI_Operaciones();
 	GUI_Cuenta c = new GUI_Cuenta();
+	public static String idioma = "";
 	
 	
 
@@ -106,7 +114,7 @@ public class GUI_Principal extends JFrame {
 		lblTPatrimonio.setFont(new Font("Roboto", Font.BOLD, 20));
 		lblTPatrimonio.setBounds(24, 68, 665, 57);
 		Principal.add(lblTPatrimonio);
-		
+
 		JLabel lblEsteEsEl = new JLabel("ESTA ES LA PANTALLA PRINCIPAL, POR FAVOR ELIJA SUS OPCIONES \r\n");
 		lblEsteEsEl.setHorizontalAlignment(SwingConstants.LEFT);
 		lblEsteEsEl.setForeground(Color.BLACK);
@@ -126,7 +134,7 @@ public class GUI_Principal extends JFrame {
 		lblFecha.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFecha.setForeground(Color.BLACK);
 		lblFecha.setFont(new Font("Roboto", Font.BOLD, 20));
-		lblFecha.setBounds(24, 363, 280, 43);
+		lblFecha.setBounds(24, 418, 280, 43);
 		Principal.add(lblFecha);
 		Calendar calendario = Calendar.getInstance();
 		String year = String.valueOf( calendario.get(Calendar.YEAR));
@@ -135,14 +143,6 @@ public class GUI_Principal extends JFrame {
 		String fecha = dia+"/"+mes+"/"+year;
 		lblFecha.setText("Fecha: " + fecha);
 		
-		JLabel lblHora = new JLabel("Hora: ");
-		lblHora.setHorizontalAlignment(SwingConstants.LEFT);
-		lblHora.setForeground(Color.BLACK);
-		lblHora.setFont(new Font("Roboto", Font.BOLD, 20));
-		lblHora.setEnabled(false);
-		lblHora.setBounds(24, 418, 280, 43);
-		Principal.add(lblHora);
-		
 		JLabel lbllogo = new JLabel("");
 		lbllogo.setIcon(new ImageIcon("imagenes/logo.png"));
 		lbllogo.setHorizontalAlignment(SwingConstants.LEFT);
@@ -150,6 +150,13 @@ public class GUI_Principal extends JFrame {
 		lbllogo.setFont(new Font("Roboto", Font.BOLD, 20));
 		lbllogo.setBounds(544, 261, 200, 200);
 		Principal.add(lbllogo);
+		
+		JLabel lblIdioma = new JLabel("IDIOMA: ");
+		lblIdioma.setBounds(24, 267, 118, 29);
+		Principal.add(lblIdioma);
+		lblIdioma.setHorizontalAlignment(SwingConstants.LEFT);
+		lblIdioma.setForeground(new Color(0, 0, 0));
+		lblIdioma.setFont(new Font("Roboto", Font.BOLD, 20));
 		
 		JLabel lblInversiones = new JLabel("Invertir");
 		lblInversiones.setBorder(null);
@@ -179,12 +186,12 @@ public class GUI_Principal extends JFrame {
 			}
 		});
 		
-		JLabel lblNewLabel_1 = new JLabel("Menú");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("Roboto", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(0, 57, 196, 29);
-		menu.add(lblNewLabel_1);
+		JLabel lblMenu = new JLabel("Menú");
+		lblMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMenu.setForeground(new Color(255, 255, 255));
+		lblMenu.setFont(new Font("Roboto", Font.BOLD, 20));
+		lblMenu.setBounds(0, 57, 196, 29);
+		menu.add(lblMenu);
 		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(new Color(255, 255, 255));
@@ -231,12 +238,12 @@ public class GUI_Principal extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GUI_Operaciones frame = new GUI_Operaciones();
+				GUI_Operaciones pantalla = new GUI_Operaciones();
 				JPanel contenedor = (JPanel) contentPane.getComponentAt(729, 447);
 				getContentPane().remove(contenedor);
-				contentPane.add(frame);
-				frame.revalidate();
-				frame.repaint();
+				contentPane.add(pantalla);
+				pantalla.revalidate();
+				pantalla.repaint();
 			}
 		});
 		lblOperaciones.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -255,6 +262,20 @@ public class GUI_Principal extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblSalir.setForeground(Color.WHITE);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int decision = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas salir?");
+				if(decision == 0) {
+					JOptionPane.showMessageDialog(null, "Sesión Cerrada exitosamente", "Proceso éxitoso", JOptionPane.INFORMATION_MESSAGE);
+					GUI_InicioSesion frame = new GUI_InicioSesion();
+					frame.setLocationRelativeTo(null);
+					frame.setVisible(true);
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, "Proceso cancelado", "Proceso Cancelado", JOptionPane.INFORMATION_MESSAGE);
+				}
+				
 			}
 		});
 		lblSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -289,7 +310,6 @@ public class GUI_Principal extends JFrame {
 				Principal.add(lblEsteEsEl);
 				Principal.add(lblEnLaBarra);
 				Principal.add(lblFecha);
-				Principal.add(lblHora);
 				Principal.revalidate();
 				Principal.repaint();
 			}
@@ -315,40 +335,54 @@ public class GUI_Principal extends JFrame {
 		lblNombre.setBounds(10, 28, 259, 29);
 		barra.add(lblNombre);
 		lblNombre.setText("¡Hola! " + GUI_InicioSesion.user);
-		
-		JLabel lblIdioma = new JLabel("Idioma:");
-		lblIdioma.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIdioma.setForeground(Color.WHITE);
-		lblIdioma.setFont(new Font("Roboto", Font.BOLD, 20));
-		lblIdioma.setBounds(533, 28, 118, 29);
-		barra.add(lblIdioma);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setFont(new Font("Roboto", Font.BOLD, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Español", "Maya"}));
-		comboBox.setBounds(661, 27, 114, 29);
-		barra.add(comboBox);
 
 		JLabel lblNewLabel = new JLabel("¡Impulsando tú patrimonio! ");
 		lblNewLabel.setIcon(new ImageIcon("imagenes/favicon.png"));
 		lblNewLabel.setFont(new Font("Roboto", Font.BOLD, 14));
 		lblNewLabel.setBounds(208, 11, 273, 28);
 		getContentPane().add(lblNewLabel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(124, 267, 114, 29);
+		Principal.add(comboBox);
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				
+				
+				idioma = comboBox.getSelectedItem().toString();
+				if(idioma.equals("Maya")) {
+					lblIdioma.setText("ajaw");
+					lblNombre.setText("kó'ko " + GUI_InicioSesion.user);
+					lblMenu.setText("ajkun");
+					lblPrincipal.setText("k'uchul");
+					lblInversiones.setText("Winikchaj");
+					lblCuenta.setText("Inwinaleob");
+					lblOperaciones.setText("Utzilal");
+					lblSalir.setText("ts'o'ok");
+					lblBienvenidoAItz.setText("K'aaba' Itzá Inversiones le túumben");
+					lblTPatrimonio.setText("ka'a'ab ku yóok'ol k'aaba'al");
+					lblEsteEsEl.setText("U k'iino' ti' le k'a'anal jump'éel, bix a k'o'olal u táanakil");
+					lblEnLaBarra.setText("Tuukul tuunichil");
+					lblFecha.setText("K'iino' " + fecha);
+				} else {
+					lblIdioma.setText("IDIOMA:");
+					lblNombre.setText("¡Hola! " + GUI_InicioSesion.user);
+					lblMenu.setText("Menu");
+					lblPrincipal.setText("Principal");
+					lblInversiones.setText("Invertir");
+					lblCuenta.setText("Mis Inversiones");
+					lblOperaciones.setText("Operaciones");
+					lblSalir.setText("Salir");
+					lblBienvenidoAItz.setText("¡BIENVENIDO A ITZÁ INVERSIONES, EL LUGAR EN DONDE IMPULSAMOS\r\n");
+					lblTPatrimonio.setText("TÚ PATRIMONIO!");
+					lblEsteEsEl.setText("ESTA ES LA PANTALLA PRINCIPAL, POR FAVOR ELIJA SUS OPCIONES \r\n");
+					lblEnLaBarra.setText("EN LA BARRA LATERAL.");
+				}
+				
+			}
+		});
+		comboBox.setFont(new Font("Roboto", Font.BOLD, 14));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Español", "Maya"}));
 	}
 	
-	public void cambiarPantallas(JPanel p1, JPanel p2) {
-		
-		if(p1.isShowing() == true) {
-		 	contentPane.add(p2);
-            p2.setVisible(true);
-            p2.repaint();
-            p2.revalidate();
-		}
-		else{
-			p2.setVisible(false);
-			p1.setVisible(true);
-            p1.repaint();
-            p1.revalidate();
-		}
-	}
 }

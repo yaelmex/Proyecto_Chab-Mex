@@ -103,6 +103,16 @@ public class GUI_Operaciones extends JPanel {
 		btnAbonar.setBackground(new Color(19, 45, 70));
 		btnAbonar.setBounds(524, 365, 199, 50);
 		add(btnAbonar);
+		
+		if(GUI_Principal.idioma.equals("Maya")) {
+			lblUsuario.setText("Yuumkab: " + GUI_InicioSesion.user);
+			lblAgregarMontoA.setText("Jach a talamak a Inversiones:");
+			btnAbonar.setText("Tumkab");
+		} else {
+			lblUsuario.setText("Usuario: " + GUI_InicioSesion.user);
+			lblAgregarMontoA.setText("Agregar monto a Inversión: ");
+			btnAbonar.setText("Abonar");
+		}
 
 	}
 	
@@ -130,6 +140,6 @@ public class GUI_Operaciones extends JPanel {
 	    columnModel.getColumn(1).setPreferredWidth(75);
 	    columnModel.getColumn(2).setPreferredWidth(150);
 	    columnModel.getColumn(3).setPreferredWidth(100);
-	    columnModel.getColumn(4).setPreferredWidth(75);
+	    columnModel.getColumn(4).setPreferredWidth(75); 
 	}
 }
